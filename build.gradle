@@ -13,6 +13,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
     testImplementation "org.junit.jupiter:junit-jupiter:5.5.1"
+    testImplementation "com.natpryce:hamkrest:1.7.0.0"
 }
 
 compileKotlin {

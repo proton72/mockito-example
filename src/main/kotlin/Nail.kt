@@ -1,1 +1,1 @@
-class Nail(val height: Int) : Kickable
+open class Nail(override val height: Int) : Kickable

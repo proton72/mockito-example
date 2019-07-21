@@ -1,1 +1,1 @@
-class Screw(heifht: Int, rotation: Boolean) : Kickable
+class Screw(rotation: Boolean, override val height: Int) : Kickable
