@@ -1,10 +1,7 @@
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.contains
 import com.natpryce.hamkrest.equalTo
-import com.nhaarman.mockitokotlin2.argumentCaptor
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.spy
-import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.*
 import org.junit.jupiter.api.Test
 
 class HammerTest {
@@ -18,13 +15,30 @@ class HammerTest {
     }
 
     @Test
+    fun basicUsefulTest() {
+        val parametersMock: Parameters = mock()
+        val hammerReal = Hammer(parametersMock)
+        hammerReal.size = 7
+
+        verify(parametersMock).size = 8
+
+       assertThat("дефолтное значение 0", hammerReal.weight, equalTo(0))
+}
+
+    @Test
     fun spyTest() {
         val realHammer = Hammer()
-        realHammer.size = 10
+        val hSize = 10
+        realHammer.size = hSize
         val hammerSpy: Hammer = spy(realHammer)
 
         val realResult = hammerSpy.giveOtherPeople(Nail(88))
-        assertThat(realResult, contains("Ударь плз молотком размера 10 по предмету".toRegex()))
+        assertThat(realResult, contains("Ударь плз молотком размера ${hSize + 1} и веса 5 по предмету ".toRegex()))
+
+        whenever(hammerSpy.giveOtherPeople(Nail(88))) doReturn "Попросили кикнуть по Nail размера 88 "
+
+        val fakeResult = hammerSpy.giveOtherPeople(Nail(88))
+        assertThat(fakeResult, contains("Попросили кикнуть по Nail размера 88".toRegex()))
     }
 
     @Test
